@@ -1,0 +1,17 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.3'
+}
+
+dependencies {
+    implementation project(':protocol')
+    implementation project(':domain')
+    implementation project(':gateway')
+    implementation project(':db-migration')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}

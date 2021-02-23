@@ -1,1 +1,2 @@
 rootProject.name = 'article-service'
+include 'app', 'protocol', 'domain', 'gateway', 'db-migration'
