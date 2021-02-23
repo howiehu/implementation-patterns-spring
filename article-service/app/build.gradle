@@ -6,7 +6,6 @@ dependencies {
     implementation project(':protocol')
     implementation project(':domain')
     implementation project(':gateway')
-    implementation project(':db-migration')
 
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
