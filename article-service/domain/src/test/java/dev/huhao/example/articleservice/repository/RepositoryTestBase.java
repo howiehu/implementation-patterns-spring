@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @DataJpaTest
-public class RepositoryTestBase {
+public abstract class RepositoryTestBase {
 
     @SpringBootApplication
     @EntityScan(basePackages = {"dev.huhao.example.articleservice.model"})
