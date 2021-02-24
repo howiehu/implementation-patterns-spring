@@ -1,4 +1,4 @@
-package dev.huhao.example.articleservice.service;
+package dev.huhao.example.realworld.articleservice.service;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;

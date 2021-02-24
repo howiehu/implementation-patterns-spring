@@ -1,8 +1,8 @@
-package dev.huhao.example.articleservice.service;
+package dev.huhao.example.realworld.articleservice.service;
 
-import dev.huhao.example.articleservice.model.Article;
-import dev.huhao.example.articleservice.repository.ArticleRepository;
-import dev.huhao.example.articleservice.service.exception.ArticleNotFoundException;
+import dev.huhao.example.realworld.articleservice.model.Article;
+import dev.huhao.example.realworld.articleservice.repository.ArticleRepository;
+import dev.huhao.example.realworld.articleservice.service.exception.ArticleNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

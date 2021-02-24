@@ -1,4 +1,4 @@
-package dev.huhao.example.articleservice.model;
+package dev.huhao.example.realworld.articleservice.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

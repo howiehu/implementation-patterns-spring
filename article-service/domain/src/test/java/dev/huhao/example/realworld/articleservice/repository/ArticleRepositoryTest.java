@@ -1,6 +1,7 @@
-package dev.huhao.example.articleservice.repository;
+package dev.huhao.example.realworld.articleservice.repository;
 
-import dev.huhao.example.articleservice.model.Article;
+import dev.huhao.example.realworld.articleservice.model.Article;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,8 @@ public class ArticleRepositoryTest extends RepositoryTestBase {
             var result = articleRepository.findById(existingArticle.getSlug());
 
             // Then
-            assertThat(result)
-                    .hasValueSatisfying(v -> assertThat(v).usingRecursiveComparison().isEqualTo(existingArticle));
+            Assertions.assertThat(result)
+                    .hasValueSatisfying(v -> Assertions.assertThat(v).usingRecursiveComparison().isEqualTo(existingArticle));
         }
 
         @Test
@@ -51,7 +52,7 @@ public class ArticleRepositoryTest extends RepositoryTestBase {
             var result = articleRepository.findById("");
 
             // Then
-            assertThat(result).isEmpty();
+            Assertions.assertThat(result).isEmpty();
         }
     }
 }

@@ -1,6 +1,6 @@
-package dev.huhao.example.articleservice.repository;
+package dev.huhao.example.realworld.articleservice.repository;
 
-import dev.huhao.example.articleservice.model.Article;
+import dev.huhao.example.realworld.articleservice.model.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
