@@ -1,10 +1,26 @@
+plugins {
+    id "org.flywaydb.flyway" version "7.5.4"
+}
+
 dependencies {
     implementation project(':gateway')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    runtimeOnly 'mysql:mysql-connector-java'
+    testRuntimeOnly 'com.h2database:h2'
+
+    testImplementation 'org.flywaydb:flyway-core'
 }
 
 test {
     useJUnitPlatform()
+}
+
+flyway {
+    url = 'jdbc:mysql://localhost:3306/article_db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false'
+    user = 'root'
+    password = 'password'
+    locations = ['classpath:db/migration']
 }

@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    # 设置 MySql 数据库用于测试环境
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/article_db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: password
