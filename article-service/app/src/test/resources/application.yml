@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    # 设置 H2 内存型数据库用于测试环境
+    driver-class-name: org.h2.Driver
+    # MODE=MySQL 用于兼容 MySQL
+    # DATABASE_TO_UPPER=false 用于关闭 H2 默认生成大写表名的功能，避免 Flyway 因大小写问题找不到所生成的数据表而报错
+    url: jdbc:h2:mem:test;MODE=MySQL;DATABASE_TO_UPPER=false
+    username: sa
+    password: sa
+server:
+  error:
+    include-message: always

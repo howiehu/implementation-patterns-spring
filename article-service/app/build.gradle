@@ -8,8 +8,14 @@ dependencies {
     implementation project(':gateway')
 
     implementation 'org.springframework.boot:spring-boot-starter'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testRuntimeOnly 'com.h2database:h2'
+
+    testImplementation 'org.flywaydb:flyway-core'
+    testImplementation 'io.rest-assured:rest-assured'
 }
 
 test {
