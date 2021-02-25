@@ -1,11 +1,19 @@
 package dev.huhao.example.realworld.articleservice.model;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
+// 开启 Spring Data JPA 的审计监听功能
+@EntityListeners(AuditingEntityListener.class)
 public class Article {
     @Id
     private String slug;
@@ -13,8 +21,11 @@ public class Article {
     private String description;
     private String body;
     private UUID authorId;
-    //    private List<String> tagList;
+    @Column(name = "created_at", updatable = false)
+    @CreatedDate
     private Instant createdAt;
+    @Column(name = "updated_at")
+    @LastModifiedDate
     private Instant updatedAt;
 
     public String getSlug() {

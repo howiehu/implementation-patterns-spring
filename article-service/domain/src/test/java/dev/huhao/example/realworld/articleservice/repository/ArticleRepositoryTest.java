@@ -1,7 +1,6 @@
 package dev.huhao.example.realworld.articleservice.repository;
 
 import dev.huhao.example.realworld.articleservice.model.Article;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.time.Instant;
 import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ArticleRepositoryTest extends RepositoryTestBase {
 
@@ -40,8 +41,8 @@ public class ArticleRepositoryTest extends RepositoryTestBase {
             var result = articleRepository.findById(existingArticle.getSlug());
 
             // Then
-            Assertions.assertThat(result)
-                    .hasValueSatisfying(v -> Assertions.assertThat(v).usingRecursiveComparison().isEqualTo(existingArticle));
+            assertThat(result)
+                    .hasValueSatisfying(v -> assertThat(v).usingRecursiveComparison().isEqualTo(existingArticle));
         }
 
         @Test
@@ -50,7 +51,35 @@ public class ArticleRepositoryTest extends RepositoryTestBase {
             var result = articleRepository.findById("");
 
             // Then
-            Assertions.assertThat(result).isEmpty();
+            assertThat(result).isEmpty();
+        }
+    }
+
+    @Nested
+    class save {
+
+        @Test
+        void should_create_article_when_not_exist() {
+            // Given
+            Article newArticle = new Article();
+            newArticle.setSlug("fake-title");
+            newArticle.setTitle("Fake Title");
+            newArticle.setDescription("Description");
+            newArticle.setBody("Something");
+            var authorId = UUID.randomUUID();
+            newArticle.setAuthorId(authorId);
+
+            // When
+            var result = articleRepository.save(newArticle);
+
+            // Then
+            assertThat(result.getSlug()).isEqualTo("fake-title");
+            assertThat(result.getTitle()).isEqualTo("Fake Title");
+            assertThat(result.getDescription()).isEqualTo("Description");
+            assertThat(result.getBody()).isEqualTo("Something");
+            assertThat(result.getAuthorId()).isEqualTo(authorId);
+            assertThat(result.getCreatedAt()).isNotNull();
+            assertThat(result.getUpdatedAt()).isNotNull();
         }
     }
 }

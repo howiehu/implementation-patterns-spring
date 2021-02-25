@@ -17,6 +17,9 @@ dependencies {
     testRuntimeOnly 'com.h2database:h2'
     // 测试环境引入 Flyway 配合 Spring Data Jpa 实现测试环境下的数据库 Schema 自动迁移和重置
     testImplementation 'org.flywaydb:flyway-core'
+
+    // 第三方库用于生成 slug
+    implementation 'com.github.slugify:slugify:2.4'
 }
 
 test {
