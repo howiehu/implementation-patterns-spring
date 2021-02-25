@@ -11,3 +11,16 @@ services:
       MYSQL_ROOT_PASSWORD: password
     ports:
       - 3306:3306
+
+  db_api_test:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      MYSQL_DATABASE: article_db
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3307:3306
+    # 利用 tmpfs 实现内存读写，加速测试时的 MySql 访问，但会消耗更多内存
+    tmpfs:
+      - /var/lib/mysql

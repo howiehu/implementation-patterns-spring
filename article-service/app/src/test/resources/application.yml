@@ -1,12 +1,10 @@
 spring:
   datasource:
-    # 设置 H2 内存型数据库用于测试环境
-    driver-class-name: org.h2.Driver
-    # MODE=MySQL 用于兼容 MySQL
-    # DATABASE_TO_UPPER=false 用于关闭 H2 默认生成大写表名的功能，避免 Flyway 因大小写问题找不到所生成的数据表而报错
-    url: jdbc:h2:mem:test;MODE=MySQL;DATABASE_TO_UPPER=false
-    username: sa
-    password: sa
+    # 设置 MySql 数据库用于 API 功能测试环境，需要启动 docker-compose 以便使用 MySql 容器
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/article_db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: password
 server:
   error:
     # 永远显示异常响应中的 message 信息（默认为 Never）用作自定义异常原因解释的存放和展示
