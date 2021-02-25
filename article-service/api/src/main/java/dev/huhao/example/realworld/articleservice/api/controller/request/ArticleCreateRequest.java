@@ -1,4 +1,4 @@
-package dev.huhao.example.realworld.articleservice.protocol.controller.request;
+package dev.huhao.example.realworld.articleservice.api.controller.request;
 
 import java.util.UUID;
 

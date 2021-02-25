@@ -4,9 +4,6 @@ plugins {
 }
 
 dependencies {
-    // Gradle Module 可被用作描述和实现分层架构及依赖关系
-    implementation project(':gateway')
-
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 

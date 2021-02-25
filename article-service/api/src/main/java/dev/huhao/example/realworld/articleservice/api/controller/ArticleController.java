@@ -1,7 +1,7 @@
-package dev.huhao.example.realworld.articleservice.protocol.controller;
+package dev.huhao.example.realworld.articleservice.api.controller;
 
+import dev.huhao.example.realworld.articleservice.api.controller.request.ArticleCreateRequest;
 import dev.huhao.example.realworld.articleservice.model.Article;
-import dev.huhao.example.realworld.articleservice.protocol.controller.request.ArticleCreateRequest;
 import dev.huhao.example.realworld.articleservice.service.ArticleService;
 import dev.huhao.example.realworld.articleservice.service.exception.ArticleNotFoundException;
 import org.springframework.http.HttpStatus;
