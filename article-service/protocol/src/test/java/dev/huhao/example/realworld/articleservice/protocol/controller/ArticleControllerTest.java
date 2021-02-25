@@ -1,6 +1,8 @@
 package dev.huhao.example.realworld.articleservice.protocol.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.huhao.example.realworld.articleservice.model.Article;
+import dev.huhao.example.realworld.articleservice.protocol.controller.request.ArticleCreateRequest;
 import dev.huhao.example.realworld.articleservice.service.ArticleService;
 import dev.huhao.example.realworld.articleservice.service.exception.ArticleNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -13,17 +15,22 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.Instant;
 import java.util.UUID;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ArticleControllerTest extends ControllerTestBase {
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean
     private ArticleService articleService;
@@ -35,7 +42,7 @@ public class ArticleControllerTest extends ControllerTestBase {
         @Test
         void should_get_article() throws Exception {
             // Given
-            Article stubArticle = new Article();
+            var stubArticle = new Article();
             stubArticle.setSlug("fake-title");
             stubArticle.setTitle("Fake Title");
             stubArticle.setDescription("Description");
@@ -48,6 +55,7 @@ public class ArticleControllerTest extends ControllerTestBase {
 
             // When
             mvc.perform(get("/articles/" + stubArticle.getSlug()).accept(APPLICATION_JSON))
+
                     // Then
                     .andExpect(status().isOk())
                     .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
@@ -70,9 +78,56 @@ public class ArticleControllerTest extends ControllerTestBase {
 
             // When
             mvc.perform(get("/articles/" + slug).accept(APPLICATION_JSON))
+
                     // Then
                     .andExpect(status().isNotFound())
                     .andExpect(status().reason(exception.getMessage()));
+        }
+    }
+
+    @Nested
+    @DisplayName("POST /articles")
+    class createArticle {
+
+        @Test
+        void should_create_article() throws Exception {
+            // Given
+            var authorId = UUID.randomUUID();
+
+            var request = new ArticleCreateRequest();
+            request.title = "Fake Title";
+            request.description = "Description";
+            request.body = "Something";
+            request.authorId = authorId;
+
+            var stubArticle = new Article();
+            stubArticle.setSlug("fake-title");
+            stubArticle.setTitle(request.title);
+            stubArticle.setDescription(request.description);
+            stubArticle.setBody(request.body);
+            stubArticle.setCreatedAt(Instant.now());
+            stubArticle.setUpdatedAt(Instant.now());
+            stubArticle.setAuthorId(authorId);
+
+            given(articleService.createArticle("Fake Title", "Description", "Something", authorId))
+                    .willReturn(stubArticle);
+
+            // When
+            mvc.perform(post("/articles")
+                    .content(objectMapper.writeValueAsString(request))
+                    .accept(APPLICATION_JSON).contentType(APPLICATION_JSON))
+
+                    // Then
+                    .andExpect(status().isCreated())
+                    .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                    .andExpect(header().string("Location", containsString("/articles/" + stubArticle.getSlug())))
+                    .andExpect(jsonPath("$.slug", is(stubArticle.getSlug())))
+                    .andExpect(jsonPath("$.title", is(stubArticle.getTitle())))
+                    .andExpect(jsonPath("$.description", is(stubArticle.getDescription())))
+                    .andExpect(jsonPath("$.body", is(stubArticle.getBody())))
+                    .andExpect(jsonPath("$.authorId", is(stubArticle.getAuthorId().toString())))
+                    .andExpect(jsonPath("$.createdAt", is(stubArticle.getCreatedAt().toString())))
+                    .andExpect(jsonPath("$.updatedAt", is(stubArticle.getUpdatedAt().toString())));
         }
     }
 }
