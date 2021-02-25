@@ -25,7 +25,7 @@ public class ArticleRepositoryTest extends RepositoryTestBase {
         @Test
         void should_find_article_by_slug() {
             // Given
-            Article existingArticle = new Article();
+            var existingArticle = new Article();
             existingArticle.setSlug("fake-title");
             existingArticle.setTitle("Fake Title");
             existingArticle.setDescription("Description");
@@ -61,7 +61,7 @@ public class ArticleRepositoryTest extends RepositoryTestBase {
         @Test
         void should_create_article_when_not_exist() {
             // Given
-            Article newArticle = new Article();
+            var newArticle = new Article();
             newArticle.setSlug("fake-title");
             newArticle.setTitle("Fake Title");
             newArticle.setDescription("Description");
