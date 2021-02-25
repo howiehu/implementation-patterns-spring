@@ -17,14 +17,21 @@ import java.util.UUID;
 public class Article {
     @Id
     private String slug;
+
+    @Column(nullable = false)
     private String title;
+
     private String description;
     private String body;
+
+    @Column(nullable = false)
     private UUID authorId;
-    @Column(name = "created_at", updatable = false)
+
+    @Column(nullable = false, updatable = false)
     @CreatedDate
     private Instant createdAt;
-    @Column(name = "updated_at")
+
+    @Column(nullable = false)
     @LastModifiedDate
     private Instant updatedAt;
 

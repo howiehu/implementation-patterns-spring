@@ -6,6 +6,7 @@ import dev.huhao.example.realworld.articleservice.repository.ArticleRepository;
 import dev.huhao.example.realworld.articleservice.service.exception.ArticleNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -21,6 +22,7 @@ public class ArticleService {
         return articleRepository.findById(slug).orElseThrow(() -> new ArticleNotFoundException(slug));
     }
 
+    @Transactional
     public Article createArticle(String title, String description, String body, UUID authorId) {
         var article = new Article();
         article.setTitle(title);
