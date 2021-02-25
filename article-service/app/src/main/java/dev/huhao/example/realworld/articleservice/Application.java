@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
+// 开启事务管理才能使 @Transactional 注解有效
 @EnableTransactionManagement
 public class Application {
 

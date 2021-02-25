@@ -3,18 +3,24 @@ plugins {
 }
 
 dependencies {
+    // Gradle Module 可被用作描述和实现分层架构及依赖关系
     implementation project(':protocol')
     implementation project(':domain')
     implementation project(':gateway')
 
     implementation 'org.springframework.boot:spring-boot-starter'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // 此处引入 Spring Data Jpa 为了在 Application 级别启用事务管理 @EnableTransactionManagement
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // 利用 Spring Boot DevTools 优化开发环境的开发调试
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+    // 测试环境通过 H2 内存型数据库实现 Fake MySql
     testRuntimeOnly 'com.h2database:h2'
-
+    // 测试环境引入 Flyway 配合 Spring Data Jpa 实现测试环境下的数据库 Schema 自动迁移和重置
     testImplementation 'org.flywaydb:flyway-core'
+
+    // 使用 RestAssured 实现单服务的 API 功能测试（QA常用工具之一）
     testImplementation 'io.rest-assured:rest-assured'
 }
 

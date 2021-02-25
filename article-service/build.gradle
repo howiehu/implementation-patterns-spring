@@ -1,3 +1,5 @@
+// 本工程的 Gradle 多 Module 实现参考此文章：https://reflectoring.io/spring-boot-gradle-multi-module/
+
 plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }

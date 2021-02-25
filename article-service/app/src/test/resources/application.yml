@@ -9,4 +9,5 @@ spring:
     password: sa
 server:
   error:
+    # 永远显示异常响应中的 message 信息（默认为 Never）用作自定义异常原因解释的存放和展示
     include-message: always
