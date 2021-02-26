@@ -63,6 +63,39 @@ public class ArticleApiTest extends ApiTestBase {
                             "updatedAt", notNullValue()
                     );
         }
+
+        @Test
+        void should_409_conflict_with_message_when_slug_existed() {
+            var authorId = UUID.randomUUID().toString();
+
+            given()
+                    .accept(JSON)
+                    .contentType(JSON)
+                    .body(Map.of(
+                            "title", "Fake Title",
+                            "description", "Description",
+                            "body", "Something",
+                            "authorId", authorId
+                    ))
+                    .when()
+                    .post("/articles");
+
+            given()
+                    .accept(JSON)
+                    .contentType(JSON)
+                    .body(Map.of(
+                            "title", "Fake Title",
+                            "description", "Description",
+                            "body", "Something",
+                            "authorId", authorId
+                    ))
+                    .when()
+                    .post("/articles")
+                    .then()
+                    .statusCode(409)
+                    .contentType(JSON)
+                    .body("message", is("the article with slug fake-title already exists"));
+        }
     }
 
     @Nested
