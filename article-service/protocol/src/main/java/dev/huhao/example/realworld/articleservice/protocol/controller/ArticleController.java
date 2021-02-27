@@ -1,6 +1,6 @@
 package dev.huhao.example.realworld.articleservice.protocol.controller;
 
-import dev.huhao.example.articleservice.service.exception.ArticleExistedException;
+import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.model.Article;
 import dev.huhao.example.realworld.articleservice.protocol.controller.request.ArticleCreateRequest;
 import dev.huhao.example.realworld.articleservice.service.ArticleService;

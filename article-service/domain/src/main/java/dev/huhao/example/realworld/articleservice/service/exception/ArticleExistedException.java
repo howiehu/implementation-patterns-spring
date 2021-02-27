@@ -1,4 +1,4 @@
-package dev.huhao.example.articleservice.service.exception;
+package dev.huhao.example.realworld.articleservice.service.exception;
 
 public class ArticleExistedException extends RuntimeException {
     public ArticleExistedException(String slug) {

@@ -1,7 +1,7 @@
 package dev.huhao.example.realworld.articleservice.service;
 
 import com.github.slugify.Slugify;
-import dev.huhao.example.articleservice.service.exception.ArticleExistedException;
+import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.model.Article;
 import dev.huhao.example.realworld.articleservice.repository.ArticleRepository;
 import dev.huhao.example.realworld.articleservice.service.exception.ArticleNotFoundException;
