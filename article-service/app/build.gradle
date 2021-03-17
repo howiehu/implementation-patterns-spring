@@ -23,8 +23,27 @@ dependencies {
 
     // 使用 RestAssured 实现单服务的 API 功能测试（QA常用工具之一）
     testImplementation 'io.rest-assured:rest-assured'
+
+    testImplementation 'com.intuit.karate:karate-junit5:1.0.0'
 }
 
 test {
     useJUnitPlatform()
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    outputs.upToDateWhen { false }
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDir file('src/test/java')
+            exclude '**/*.java'
+        }
+    }
+}
+
+task karateDebug(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = 'com.intuit.karate.cli.Main'
 }

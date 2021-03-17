@@ -45,23 +45,6 @@ public class ArticleApiTest extends ApiTestBase {
                             "createdAt", notNullValue(),
                             "updatedAt", notNullValue()
                     );
-
-            given()
-                    .accept(JSON)
-                    .when()
-                    .get("/articles/fake-title")
-                    .then()
-                    .statusCode(200)
-                    .contentType(JSON)
-                    .body(
-                            "slug", is("fake-title"),
-                            "title", is("Fake Title"),
-                            "description", is("Description"),
-                            "body", is("Something"),
-                            "authorId", is(authorId),
-                            "createdAt", notNullValue(),
-                            "updatedAt", notNullValue()
-                    );
         }
 
         @Test
