@@ -1,4 +1,4 @@
-package karate;
+package features;
 
 import dev.huhao.example.realworld.articleservice.Application;
 import org.flywaydb.test.FlywayTestExecutionListener;
@@ -12,7 +12,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class})
-public abstract class KarateTestBase implements InitializingBean {
+public abstract class KarateRunnerBase implements InitializingBean {
     @LocalServerPort
     int port;
 

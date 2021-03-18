@@ -21,16 +21,17 @@ dependencies {
     // 所以使用 Flyway Test 扩展来实现测试时的数据库迁移和重置
     testImplementation 'org.flywaydb.flyway-test-extensions:flyway-spring-test:7.0.0'
 
-    // 使用 RestAssured 实现单服务的 API 功能测试（QA常用工具之一）
-    testImplementation 'io.rest-assured:rest-assured'
-
+    // 使用 Karate 实现更加面向 Living Document 的单服务 API 功能测试
     testImplementation 'com.intuit.karate:karate-junit5:1.0.0'
 }
 
 test {
     useJUnitPlatform()
+    // pull karate options into the runtime
     systemProperty "karate.options", System.properties.getProperty("karate.options")
+    // pull karate env into the runtime
     systemProperty "karate.env", System.properties.getProperty("karate.env")
+    // ensure tests are always run
     outputs.upToDateWhen { false }
 }
 
