@@ -7,6 +7,9 @@ Feature: create article api
     * def authorId = callonce randomUUID
 
   Scenario: create an article
+    # 重置数据库
+    * call read(dbRestoreFeature)
+
     Given path articleBase
     And request
     """
