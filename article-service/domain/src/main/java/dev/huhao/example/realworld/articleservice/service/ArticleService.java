@@ -1,13 +1,13 @@
 package dev.huhao.example.realworld.articleservice.service;
 
 import com.github.slugify.Slugify;
-import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.model.Article;
 import dev.huhao.example.realworld.articleservice.repository.ArticleRepository;
+import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.service.exception.ArticleNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -37,6 +37,7 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
+    @Transactional(readOnly = true)
     public Article getArticle(String slug) {
         return articleRepository.findById(slug).orElseThrow(() -> new ArticleNotFoundException(slug));
     }

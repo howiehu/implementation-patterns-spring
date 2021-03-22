@@ -6,8 +6,9 @@
 
 - 工序#1（30 min）：Stub Repository，实现 Service 组装 Model
 - 工序#2（15 min）：Stub / Mock Repository，实现 Service 抛出自定义 RuntimeException
-- 工序#3（30 min）：Fake DB，编写 Migration，增加 Model 的 Spring Data JPA 注解，实现 Repository 对 Model 进行持久化操作，填充审计字段。
-- 工序#4（5 min）：对 Service 的方法增加 @Transactional 注解实现事务
+- 工序#3（30 min）：Fake DB，编写 Migration，增加 Model 的 Spring Data JPA 注解，实现 Repository 对 Model 进行持久化操作，填充审计字段
+- 工序#4（5 min）：对 Service 的数据写入类方法增加 org.springframework.transaction.annotation.Transactional 注解实现事务
+- 工序#8（5 min）：对 Service 的数据只读类方法增加 org.springframework.transaction.annotation.Transactional(readonly = true) 注解实现只读事务
 
 ### 组件：Controller / Request
 
@@ -28,7 +29,7 @@
 ##### Example#1：成功创建
 
 1. 工序#1（30 min）：Stub ArticleRepository，实现 ArticleService 组装 Article Model（拥有 slug、title、description、body、authorId、createdAt、updatedAt，其中 createdAt、updatedAt 无需赋值），基于 title 生成 slug。当 ArticleRepository 传入组装的 Article 后返回 Stub Article。
-2. 工序#4（5 min）：对上一步实现的 ArticleService 方法增加 @Transactional 注解实现事务。
+2. 工序#4（5 min）：对上一步实现的 ArticleService 方法增加 org.springframework.transaction.annotation.Transactional 注解实现事务。
 3. 工序#3（30 min）：Fake DB，编写 Migration 创建 article 表，增加 Article 的 Spring Data JPA 注解，实现 ArticleRepository 创建 Article，并自动填充审计字段（createdAt、updatedAt）。
 4. 工序#5（30 min）：Stub ArticleService 返回 Stub Article。Fake Http Request 发送请求 `POST /articles { title, description, body, authorId }`。实现 ArticleController，验证响应为 `201 Created { slug、title、description、body、createdAt、updatedAt }`。
 5. 工序#7（15 min）：对上一步实现的 API 添加功能测试。
@@ -48,9 +49,10 @@
 ##### Example#1：给定的 slug 存在，成功获取文章
 
 1. 工序#1（30 min）：Stub ArticleRepository。实现 ArticleService 根据 slug 返回 Article。当 ArticleRepository 传入 slug 后返回 Stub Article。
-2. 工序#3（30 min）：Fake DB，实现 ArticleRepository 根据 slug 获取 Article。
-3. 工序#5（30 min）：Stub ArticleService 返回 Stub Article。Fake Http Request 发送请求 `GET /articles/{slug}`。实现 ArticleController，验证响应为 `200 Ok { slug、title、description、body、createdAt、updatedAt }`。
-4. 工序#7（15 min）：对上一步实现的 API 添加功能测试。
+2. 工序#8（5 min）：对上一步实现的 ArticleService 方法增加 org.springframework.transaction.annotation.Transactional(readonly = true) 注解实现只读事务。
+3. 工序#3（30 min）：Fake DB，实现 ArticleRepository 根据 slug 获取 Article。
+4. 工序#5（30 min）：Stub ArticleService 返回 Stub Article。Fake Http Request 发送请求 `GET /articles/{slug}`。实现 ArticleController，验证响应为 `200 Ok { slug、title、description、body、createdAt、updatedAt }`。
+5. 工序#7（15 min）：对上一步实现的 API 添加功能测试。
 
 #### AC#2：当 slug 不存在的时候，需要告知：`cannot find the article with slug {slug}`
 
