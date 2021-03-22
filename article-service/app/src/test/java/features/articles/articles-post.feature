@@ -6,6 +6,7 @@ Feature: create article api
     * def randomUUID = function(){ return java.util.UUID.randomUUID() + '' }
     * def authorId = callonce randomUUID
 
+  @create
   Scenario: create an article
     # 重置数据库
     * call read(dbRestoreFeature)
