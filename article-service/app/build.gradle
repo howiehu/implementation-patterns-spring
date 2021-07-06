@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.4.3'
+    id 'org.springframework.boot' version '2.5.2'
 }
 
 dependencies {
@@ -22,7 +22,7 @@ dependencies {
     testImplementation 'org.flywaydb.flyway-test-extensions:flyway-spring-test:7.0.0'
 
     // 使用 Karate 实现更加面向 Living Document 的单服务 API 功能测试
-    testImplementation 'com.intuit.karate:karate-junit5:1.0.0'
+    testImplementation 'com.intuit.karate:karate-junit5:1.0.1'
     // 用于在测试时通过 RESTful API 提供测试专用功能
     testImplementation 'org.springframework.boot:spring-boot-starter-web'
 }

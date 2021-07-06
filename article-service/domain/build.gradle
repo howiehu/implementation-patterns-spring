@@ -19,7 +19,7 @@ dependencies {
     testImplementation 'org.flywaydb:flyway-core'
 
     // 第三方库用于生成 slug
-    implementation 'com.github.slugify:slugify:2.4'
+    implementation 'com.github.slugify:slugify:2.5'
 }
 
 test {
