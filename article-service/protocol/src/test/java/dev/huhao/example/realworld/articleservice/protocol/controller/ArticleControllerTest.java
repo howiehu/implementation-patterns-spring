@@ -1,10 +1,10 @@
 package dev.huhao.example.realworld.articleservice.protocol.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.model.Article;
 import dev.huhao.example.realworld.articleservice.protocol.controller.request.ArticleCreateRequest;
 import dev.huhao.example.realworld.articleservice.service.ArticleService;
+import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.service.exception.ArticleNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -38,24 +38,20 @@ public class ArticleControllerTest extends ControllerTestBase {
 
     @Nested
     @DisplayName("POST /articles")
-    class createArticle {
+    class TestCreateArticle {
 
         @Test
         void should_create_article() throws Exception {
             // Given
             var authorId = UUID.randomUUID();
 
-            var request = new ArticleCreateRequest();
-            request.title = "Fake Title";
-            request.description = "Description";
-            request.body = "Something";
-            request.authorId = authorId;
+            var request = new ArticleCreateRequest("Fake Title", "Description", "Something", authorId);
 
             var stubArticle = new Article();
             stubArticle.setSlug("fake-title");
-            stubArticle.setTitle(request.title);
-            stubArticle.setDescription(request.description);
-            stubArticle.setBody(request.body);
+            stubArticle.setTitle(request.title());
+            stubArticle.setDescription(request.description());
+            stubArticle.setBody(request.body());
             stubArticle.setCreatedAt(Instant.now());
             stubArticle.setUpdatedAt(Instant.now());
             stubArticle.setAuthorId(authorId);
@@ -65,8 +61,8 @@ public class ArticleControllerTest extends ControllerTestBase {
 
             // When
             mvc.perform(post("/articles")
-                    .content(objectMapper.writeValueAsString(request))
-                    .accept(APPLICATION_JSON).contentType(APPLICATION_JSON))
+                            .content(objectMapper.writeValueAsString(request))
+                            .accept(APPLICATION_JSON).contentType(APPLICATION_JSON))
 
                     // Then
                     .andExpect(status().isCreated())
@@ -84,11 +80,7 @@ public class ArticleControllerTest extends ControllerTestBase {
         @Test
         void should_409_conflict_with_message_when_slug_existed() throws Exception {
             //Given
-            var request = new ArticleCreateRequest();
-            request.title = "Fake Title";
-            request.description = "Description";
-            request.body = "Something";
-            request.authorId = UUID.randomUUID();
+            var request = new ArticleCreateRequest("Fake Title", "Description", "Something", UUID.randomUUID());
 
             var exception = new ArticleExistedException("fake-slug");
             given(articleService.createArticle(any(), any(), any(), any())).willThrow(exception);
@@ -96,8 +88,8 @@ public class ArticleControllerTest extends ControllerTestBase {
 
             // When
             mvc.perform(post("/articles")
-                    .content(objectMapper.writeValueAsString(request))
-                    .accept(APPLICATION_JSON).contentType(APPLICATION_JSON))
+                            .content(objectMapper.writeValueAsString(request))
+                            .accept(APPLICATION_JSON).contentType(APPLICATION_JSON))
 
                     // Then
                     .andExpect(status().isConflict())
@@ -107,7 +99,7 @@ public class ArticleControllerTest extends ControllerTestBase {
 
     @Nested
     @DisplayName("GET /articles/{slug}")
-    class getArticle {
+    class TestGetArticle {
 
         @Test
         void should_get_article() throws Exception {
@@ -148,7 +140,7 @@ public class ArticleControllerTest extends ControllerTestBase {
 
             // When
             mvc.perform(get("/articles/" + slug)
-                    .accept(APPLICATION_JSON))
+                            .accept(APPLICATION_JSON))
 
                     // Then
                     .andExpect(status().isNotFound())

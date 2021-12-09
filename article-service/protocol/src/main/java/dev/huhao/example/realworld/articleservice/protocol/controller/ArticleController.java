@@ -1,9 +1,9 @@
 package dev.huhao.example.realworld.articleservice.protocol.controller;
 
-import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.model.Article;
 import dev.huhao.example.realworld.articleservice.protocol.controller.request.ArticleCreateRequest;
 import dev.huhao.example.realworld.articleservice.service.ArticleService;
+import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.service.exception.ArticleNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ public class ArticleController {
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create(@RequestBody ArticleCreateRequest data, UriComponentsBuilder uriComponentsBuilder) {
         try {
-            var article = articleService.createArticle(data.title, data.description, data.body, data.authorId);
+            var article = articleService.createArticle(data.title(), data.description(), data.body(), data.authorId());
             var uriComponents = uriComponentsBuilder.path("/articles/{slug}").buildAndExpand(article.getSlug());
             return created(uriComponents.toUri()).body(article);
         } catch (ArticleExistedException ex) {

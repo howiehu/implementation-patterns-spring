@@ -1,8 +1,8 @@
 package dev.huhao.example.realworld.articleservice.service;
 
-import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.model.Article;
 import dev.huhao.example.realworld.articleservice.repository.ArticleRepository;
+import dev.huhao.example.realworld.articleservice.service.exception.ArticleExistedException;
 import dev.huhao.example.realworld.articleservice.service.exception.ArticleNotFoundException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ public class ArticleServiceTest extends ServiceTestBase {
     private ArticleService articleService;
 
     @Nested
-    class createArticle {
+    class TestCreateArticle {
 
         @Test
         void should_create_article() {
@@ -70,7 +70,7 @@ public class ArticleServiceTest extends ServiceTestBase {
     }
 
     @Nested
-    class getArticle {
+    class TestGetArticle {
 
         @Test
         void should_get_article() {
