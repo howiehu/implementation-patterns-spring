@@ -12,13 +12,15 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'java-library'
 
+    sourceCompatibility = JavaVersion.VERSION_17
+
     repositories {
         mavenCentral()
     }
 
     dependencyManagement {
         imports {
-            mavenBom('org.springframework.boot:spring-boot-dependencies:2.5.7')
+            mavenBom('org.springframework.boot:spring-boot-dependencies:2.6.1')
         }
     }
 }

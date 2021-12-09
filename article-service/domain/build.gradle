@@ -1,6 +1,6 @@
 plugins {
     // 使用 Flyway 的 Gradle 插件支持 Gradle Task 的使用
-    id "org.flywaydb.flyway" version "7.7.3"
+    id "org.flywaydb.flyway" version "8.0.4"
 }
 
 dependencies {

@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.7'
+    id 'org.springframework.boot' version '2.6.1'
 }
 
 dependencies {
@@ -48,5 +48,5 @@ sourceSets {
 
 task karateDebug(type: JavaExec) {
     classpath = sourceSets.test.runtimeClasspath
-    main = 'com.intuit.karate.cli.Main'
+    mainClass.set('com.intuit.karate.cli.Main')
 }
