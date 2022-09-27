@@ -21,7 +21,7 @@ public class ArticleService {
 
     @Transactional
     public Article createArticle(String title, String description, String body, UUID authorId) {
-        var slug = new Slugify().slugify(title);
+        var slug = Slugify.builder().build().slugify(title);
 
         if (articleRepository.existsById(slug)) {
             throw new ArticleExistedException(slug);
