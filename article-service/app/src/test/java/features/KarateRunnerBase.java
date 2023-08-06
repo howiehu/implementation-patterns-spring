@@ -4,6 +4,7 @@ import dev.huhao.example.realworld.articleservice.Application;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.flywaydb.test.annotation.FlywayTest;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.TestExecutionListeners;
@@ -20,7 +21,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 public abstract class KarateRunnerBase implements InitializingBean {
 
     // 注入随机端口
-    @LocalServerPort
+    @Value("${local.server.port}")
     int port;
 
     @Override
